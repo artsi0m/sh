@@ -1,2 +1,14 @@
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 # https://man.openbsd.org/OpenBSD-6.9/style
+Language: Cpp
+IndentWidth: 8
+UseTab: ForContinuationAndIndentation
+AlignAfterOpenBracket: true
+AlignConsecutiveAssignments: false
+AlwaysBreakAfterReturnType: AllDefinitions
+BreakBeforeBraces: Mozilla
+BraceWrapping:
+  AfterFunction: true
+  AfterEnum: false
+  AfterStruct: false
+  AfterUnion: false
