@@ -1,10 +1,20 @@
+# Uncopyrighted configs Friday September 3 2021
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 # https://man.openbsd.org/OpenBSD-6.9/style
-Language: Cpp
+
+BasedOnStyle: LLVM
 IndentWidth: 8
+
+Language: Cpp # Value C is not available unfortunately
+DerivePointerAlignment: false
+PointerAlignment: Right
+ColumnLimit: 80 # PEP-7 Style column limit
+
 UseTab: ForContinuationAndIndentation
+
 AlignAfterOpenBracket: true
 AlignConsecutiveAssignments: false
+
 AlwaysBreakAfterReturnType: AllDefinitions
 BreakBeforeBraces: Mozilla
 BraceWrapping:
@@ -12,3 +22,9 @@ BraceWrapping:
   AfterEnum: false
   AfterStruct: false
   AfterUnion: false
+  
+---
+Language: Javascript
+DisableFormat: true
+# PULL REQUESTS ARE WELCOME
+---
