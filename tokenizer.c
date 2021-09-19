@@ -7,7 +7,7 @@
 char *delimiters = " \t";
 
 int
-main(void)
+main(int argc, char *argv[])
 {
 
 	char *inputstring;
@@ -16,9 +16,11 @@ main(void)
 
 	*word = NULL;
 
-	inputstring = strndup("cat file | grep line", BUFFER_SIZE);
-
-	while ((*word = strsep(&inputstring, " \t")) != NULL) {
+   inputstring = *argv; 
+	 inputstring = strndup("cat file | grep line", BUFFER_SIZE);
+   
+  
+	while ((*word = strsep(&inputstring, delimiters)) != NULL) {
 		puts(*word);
 	}
   
