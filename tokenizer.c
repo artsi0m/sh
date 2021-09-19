@@ -2,26 +2,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFFER_SIZE 1024
 
+size_t buffer_size = 1024;
 char *delimiters = " \t";
 
 int
 main(int argc, char *argv[])
 {
 
-	char *inputstring;
+  extern size_t buffer_size;
 	extern char *delimiters;
-	char *word[BUFFER_SIZE];
+	char *inputstring;
+	char *word[buffer_size];
 
 	*word = NULL;
-
-   inputstring = *argv; 
-	 inputstring = strndup("cat file | grep line", BUFFER_SIZE);
-   
+	 inputstring = strndup("cat file | grep line", buffer_size);
   
+  /* Memory leak may appear hear */
 	while ((*word = strsep(&inputstring, delimiters)) != NULL) {
 		puts(*word);
 	}
   
+  free(inputstring);
 }
