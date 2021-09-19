@@ -22,9 +22,3 @@ BraceWrapping:
   AfterEnum: false
   AfterStruct: false
   AfterUnion: false
-  
----
-Language: Javascript
-DisableFormat: true
-# PULL REQUESTS ARE WELCOME
----
