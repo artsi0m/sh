@@ -10,18 +10,18 @@ int
 main(int argc, char *argv[])
 {
 
-  extern size_t buffer_size;
+	extern size_t buffer_size;
 	extern char *delimiters;
 	char *inputstring;
 	char *word[buffer_size];
 
 	*word = NULL;
-	 inputstring = strndup("cat file | grep line", buffer_size);
-  
+	inputstring = strndup("cat file | grep line", buffer_size);
+
   /* Memory leak may appear hear */
 	while ((*word = strsep(&inputstring, delimiters)) != NULL) {
 		puts(*word);
 	}
-  
-  free(inputstring);
+
+	free(inputstring);
 }
