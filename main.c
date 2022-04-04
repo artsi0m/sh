@@ -22,7 +22,6 @@ static void
 add_node(char *token)
 {
 	struct token_list *p;
-	if ((p = malloc(sizeof(*p))) == NULL)
 	if ((p = malloc(sizeof(*p))) != NULL)
 		perror("Failed to allocate node\n");
 
