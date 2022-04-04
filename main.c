@@ -1,29 +1,56 @@
+#include <sys/wait.h>
+#include <sys/queue.h>
+#include <unistd.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
-size_t buffer_size = 1024;
-char *delimiters = " \t";
+#include "dat.h"
+
+
+struct token_list {
+		SLIST_ENTRY(token_list) next;
+	char token[BUFFER_SIZE];
+};
+
+SLIST_HEAD(, token_list) head;
+
+static void
+add_node(char *token)
+{
+	struct token_list *p;
+	if ((p = malloc(sizeof(*p))) == NULL)
+	if ((p = malloc(sizeof(*p))) != NULL)
+		perror("Failed to allocate node\n");
+
+	strlcpy(p->token, token, BUFFER_SIZE);
+	SLIST_INSERT_HEAD(&head, p, next);
+}
+
+
 
 int
-main(int argc, char *argv[])
+main(void)
 {
 
-	extern size_t buffer_size;
-	extern char *delimiters;
+	char *delimiters = " \t";
 	char *inputstring;
-	char *word[buffer_size];
-
+	char *word[BUFFER_SIZE];
 	*word = NULL;
+	struct token_list *p;
+	SLIST_INIT(&head);
 
 	while ((inputstring = readline("sh34: ")) != NULL) {
- 		 /* Memory leak may appear hear */
 		while ((*word = strsep(&inputstring, delimiters)) != NULL) {
-			puts(*word);
+			add_node(*word);
 		}
 		*word = NULL;
+		SLIST_FOREACH(p, &head, next) {
+			puts(p->token);
+		}
 		free(inputstring);
 	}
 }
