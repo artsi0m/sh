@@ -12,11 +12,11 @@
 
 
 struct token_list {
-		SLIST_ENTRY(token_list) next;
+		SIMPLEQ_ENTRY(token_list) next;
 	char token[BUFFER_SIZE];
 };
 
-SLIST_HEAD(, token_list) head;
+SIMPLEQ_HEAD(, token_list) head;
 
 static void
 add_node(char *token)
@@ -26,7 +26,7 @@ add_node(char *token)
 		perror("Failed to allocate node\n");
 
 	strlcpy(p->token, token, BUFFER_SIZE);
-	SLIST_INSERT_HEAD(&head, p, next);
+	SIMPLEQ_INSERT_TAIL(&head, p, next);
 }
 
 
@@ -40,14 +40,14 @@ main(void)
 	char *word[BUFFER_SIZE];
 	*word = NULL;
 	struct token_list *p;
-	SLIST_INIT(&head);
+	SIMPLEQ_INIT(&head);
 
 	while ((inputstring = readline("sh34: ")) != NULL) {
 		while ((*word = strsep(&inputstring, delimiters)) != NULL) {
 			add_node(*word);
 		}
 		*word = NULL;
-		SLIST_FOREACH(p, &head, next) {
+		SIMPLEQ_FOREACH(p, &head, next) {
 			puts(p->token);
 		}
 		free(inputstring);
