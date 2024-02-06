@@ -5,9 +5,6 @@
 
 bool quoted;
 
-void toggle_bool(bool var){
-	var = (var == true) ?  false : true;
-}
 
 
 void
@@ -16,7 +13,7 @@ lex_handle_apostrophe(int nc){
 		putchar('\'');
 	}
 	else {
-		toggle_bool(quoted);
+	  quoted = !quoted;
 	}
 
 }
@@ -30,26 +27,26 @@ lex_handle_blank(int nc){
 
 void
 lex(char string[]){
-	int c;
-	int nc;
+	char *c;
+	char *nc;
 
 	extern bool quoted;
 	quoted = false;
-	for (c=string[0], nc=string[1]; /* Todo: handle empty */
-	     nc != '\0'; c++, nc++){
+	for (c=&string[0], nc=&string[1]; /* Todo: handle empty */
+	     *nc != '\0'; c++, nc++){
 		
-		switch(c){
+		switch(*c){
 		case '\'':
-			lex_handle_apostrophe(nc);
+			lex_handle_apostrophe(*nc);
 			break;
 		case ' ':
-			lex_handle_blank(nc);
+			lex_handle_blank(*nc);
 			break;
 		case '\t':
-			lex_handle_blank(nc);
+			lex_handle_blank(*nc);
 			break;
 		default:
-			putchar(c);
+			putchar(*c);
 			break;
 		}
 	}
